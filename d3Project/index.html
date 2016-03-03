@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/d3.js"></script>
+    <script src="js/vis.js"></script>
+    <script src="js/utils.js"></script>
+</head>
+<style>
+    .line {
+        fill: none;
+        stroke-width: 1.5px;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+</style>
+<body>
+<div id="vis"></div>
+
+</body>
+
+<script>
+    var generator = getRandomNum(0.5, 1.2),
+        map = {},
+        max = 0,
+        timeKey = "Years";
+
+    //Raw data
+    data = [
+        {"Years": "03-04", "75": "7", "76-80": "5", "81-85": "10", "86": "25"},
+        {"Years": "01-02", "75": "15", "76-80": "21", "81-85": "24", "86": "31"},
+        {"Years": "99-00", "75": "23", "76-80": "29", "81-85": "30", "86": "27"},
+        {"Years": "97-98", "75": "16", "76-80": "17", "81-85": "14", "86": "10"},
+        {"Years": "95-96", "75": "10", "76-80": "11", "81-85": "8", "86": "2"},
+        {"Years": "93-94", "75": "7", "76-80": "4", "81-85": "5", "86": "2"},
+        {"Years": "91-92", "75": "5", "76-80": "5", "81-85": "2", "86": "2"},
+        {"Years": "89-90", "75": "4", "76-80": "2", "81-85": "2", "86": "1"},
+        {"Years": "87-88", "75": "3", "76-80": "1", "81-85": "1", "86": "3"},
+        {"Years": "85-86", "75": "2", "76-80": "0", "81-85": "1", "86": "0"},
+        {"Years": "83-84", "75": "0", "76-80": "0", "81-85": "0", "86": "0"},
+        {"Years": "Before 83", "75": "7", "76-80": "4", "81-85": "3", "86": "0"}
+    ];
+
+    //Create an array of each column (consisting of years & values) out of 'data'
+    data.reverse().forEach(function (d) {
+
+        for (var key in d) {
+            var years = d[timeKey],
+                    val = d[key],
+                    tmp = {date: years, value: val};
+
+            if(key == timeKey)
+                continue;
+
+            if(key in map)
+                map[key].push(tmp);
+            else
+                map[key] = [tmp];
+
+            if (+val > max)
+                max = +val;
+        }
+    })
+
+    var chart = lineChart();
+    chart.width(800).height(400).data(map).campusID("#vis").draw();
+
+</script>
+
+
+</html>
