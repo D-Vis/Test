@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="vis.js"></script>
+</head>
+<style>
+    .line {
+        fill: none;
+        stroke-width: 1.5px;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        opacity: 0.2;
+        shape-rendering: crispEdges;
+    }
+
+</style>
+<body>
+<div id="vis"></div>
+
+<script>
+
+    testData = [
+        { date: new Date(2016, 3, 23), value: 0.2},
+        { date: new Date(2016, 3, 24), value: 0.5},
+        { date: new Date(2016, 3, 25), value: 0},
+        { date: new Date(2016, 3, 26), value: -1},
+        { date: new Date(2016, 3, 27), value: 0.7}
+    ];
+
+    var chart = new lineChart();
+    chart.width(600).height(300).data(testData);
+    d3.select("#vis").call(chart);
+
+</script>
+
+</body>
+</html>
