@@ -1,5 +1,12 @@
 #v1.17.1
+import os
+import cPickle
+
 import twitter
+import json
+
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk import tokenize
 #import json
 
 # First: Go to http://twitter.com/apps/new to create an app and get values
